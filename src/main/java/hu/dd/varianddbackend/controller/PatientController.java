@@ -32,4 +32,10 @@ public class PatientController {
         });
     }
 
+    @GetMapping("/patient/deleteAll")
+    public void deleteAll()
+    {
+        patientRepository.deleteAll();
+    }
+
 }

@@ -56,7 +56,7 @@ public class AppStartupRunner implements ApplicationRunner {
         forNames.add("Alexandra");
         forNames.add("Lily");
 
-        List<String> familyNames = List.of(getResourceFileAsString("familynames.csv").split(","));
+        List<String> familyNames = List.of(getResourceFileAsString("familynames.csv").split("\n"));
         List<String> cancerTypes = List.of(new String[]{"Brain tumor", "Lung cancer", "Skin cancer", "Carcinoma", "Leukemia", "Melanoma", "Spinal Cord Tumor", "Sarcoma"});
 
         for (int iteration = 0; iteration < 60; iteration++) {
@@ -67,7 +67,7 @@ public class AppStartupRunner implements ApplicationRunner {
             String name = forNames.get(random.nextInt(forNames.size())) + " " + familyNames.get(random.nextInt(familyNames.size()));
             patientToAdd.setName(name);
             patientToAdd.setDiagnosisYear(Date.from(Instant.ofEpochSecond(ThreadLocalRandom.current().nextInt())));
-            patientToAdd.setEmail(name + "@gmail.com");
+            patientToAdd.setEmail(name.replace(" ", "_") + "@gmail.com");
             StringBuilder phoneNumber = new StringBuilder("+36");
             for (int i = 0; i < 6; i++) {
                 phoneNumber.append(random.nextInt(9));
@@ -84,7 +84,7 @@ public class AppStartupRunner implements ApplicationRunner {
         InputStream is = getResourceFileAsInputStream(fileName);
         if (is != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            return (String)reader.lines().collect(Collectors.joining(System.lineSeparator()));
+            return reader.lines().collect(Collectors.joining(System.lineSeparator()));
         } else {
             throw new RuntimeException("resource not found");
         }
