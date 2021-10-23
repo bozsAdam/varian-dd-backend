@@ -1,12 +1,11 @@
 package hu.dd.varianddbackend.controller;
 
 import hu.dd.varianddbackend.model.StatusReport;
-import hu.dd.varianddbackend.repository.PatientRepository;
 import hu.dd.varianddbackend.repository.StatusReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,13 +14,20 @@ public class StatusReportController {
     @Autowired
     private StatusReportRepository statusRepository;
 
-    @Autowired
-    private PatientRepository patientRepository;
-
     @GetMapping("/statusreport/list")
     public List<StatusReport> getAllStatusReports()
     {
         return statusRepository.findAll();
+    }
+
+    @GetMapping("/statusreport/{id}")
+    public StatusReport getStatusReport(@PathVariable("id") Long id)
+    {
+        return statusRepository.findById(id).orElseThrow(()-> {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Patient with this id does not exist"
+            );
+        });
     }
 
     @PostMapping("/statusreport/add")
