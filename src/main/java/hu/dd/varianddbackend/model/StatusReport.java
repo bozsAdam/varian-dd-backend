@@ -22,7 +22,6 @@ public class StatusReport {
     private long id;
 
     @ManyToOne
-    @JsonManagedReference
     private Patient patient;
 
     private String image;
