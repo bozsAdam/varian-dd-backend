@@ -23,7 +23,7 @@ public class PatientController {
     }
 
     @GetMapping("/patient/{id}")
-    public Patient getPatientById(@PathVariable("id") Integer id)
+    public Patient getPatientById(@PathVariable("id") Long id)
     {
         return patientRepository.findById(id).orElseThrow(()-> {
             throw new ResponseStatusException(
