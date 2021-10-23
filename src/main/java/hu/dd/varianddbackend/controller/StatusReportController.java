@@ -31,7 +31,7 @@ public class StatusReportController {
     }
 
     @PostMapping("/statusreport/add")
-    public void addStatusReport(StatusReport statusReport)
+    public void addStatusReport(@RequestBody StatusReport statusReport)
     {
         statusRepository.save(statusReport);
     }
