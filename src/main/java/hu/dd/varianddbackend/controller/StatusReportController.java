@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,7 @@ public class StatusReportController {
     @PostMapping("/statusreport/add")
     public void addStatusReport(@RequestBody StatusReport statusReport)
     {
+        statusReport.setDate(new Date(System.currentTimeMillis()));
         statusRepository.save(statusReport);
     }
 }

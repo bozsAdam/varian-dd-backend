@@ -24,6 +24,7 @@ public class StatusReport {
     @ManyToOne
     private Patient patient;
 
+    @Column(length = 1000000)
     private String image;
     @ElementCollection
     private List<String> symptomAreas;
